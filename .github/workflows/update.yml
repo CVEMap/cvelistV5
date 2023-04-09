@@ -17,7 +17,7 @@ on:
         required: false
         default: 'debug'
 jobs:
-  generate-name:
+  update-cves:
     environment: development
     runs-on: ubuntu-latest
     outputs:
@@ -27,10 +27,16 @@ jobs:
         id: get-timestamp
         # run: echo "out=$(date '+%Y-%m-%d_%H%M_UTC')" >> $GITHUB_OUTPUT
         run: |
-          echo "out=$(date '+%Y-%m-%d_%H%M_UTC')" >> $TEMP_TIMESTAMP
-          echo "$TEMP_TIMESTAMP" >> $GITHUB_OUTPUT
+          TEMP_TIMESTAMP=$(date '+%Y-%m-%d_%H%M_UTC')
+          echo "out=$TEMP_TIMESTAMP" >> $GITHUB_OUTPUT
+      - name: Checkout repository
+        uses: actions/checkout@v3
       - name: update-log
-        run: echo "$TEMP_TIMESTAMP" >> update_log.md
+        run: |
+          echo "$TEMP_TIMESTAMP" >> update_log.md
+          git add update_log.md
+          git commit -m "abc"
+          git push
       # - name: create release with source code as artifacts
       #   uses: softprops/action-gh-release@v1
       #   with:
