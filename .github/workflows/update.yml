@@ -37,13 +37,13 @@ jobs:
           git add update_log.md
           git commit -m "abc"
           git push
-      # - name: create release with source code as artifacts
-      #   uses: softprops/action-gh-release@v1
-      #   with:
-      #     name: CVE ${{ needs.generate-name.outputs.v_current_run_timestamp }}
-      #     # body: Descriptions for CVE ${{ needs.generate-name.outputs.v_current_run_timestamp }} goes here
-      #     body_path: ./release_notes.md
-      #     tag_name: cve_${{ needs.generate-name.outputs.v_current_run_timestamp }}
+      - name: create release with source code as artifacts
+        uses: softprops/action-gh-release@v1
+        with:
+           name: CVE ${{ needs.generate-name.outputs.v_current_run_timestamp }}
+           body: Descriptions for CVE ${{ needs.generate-name.outputs.v_current_run_timestamp }} goes here
+           body_path: ./release_notes.md
+           tag_name: cve_${{ needs.generate-name.outputs.v_current_run_timestamp }}
       #     files: |
       #       release_notes.md
       #     #   cves_${{ needs.generate-name.outputs.v_current_run_timestamp }}.zip
